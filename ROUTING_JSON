@@ -1,0 +1,42 @@
+{
+    "Name": "RoscomVPN",
+    "GlobalProxy": "true",
+    "RemoteDns": "94.140.14.14",
+    "DomesticDns": "94.140.14.14",
+    "Geoipurl": "https://github.com/hydraponique/roscomvpn-geoip/releases/latest/download/geoip.dat",
+    "Geositeurl": "https://github.com/hydraponique/roscomvpn-geosite/releases/latest/download/geosite.dat",
+    "DnsHosts": {},
+    "DirectSites": [
+        "geosite:private",
+        "geosite:test",
+        "geosite:category-ru",
+        "geosite:microsoft",
+        "geosite:win-update",
+        "geosite:win-extra",
+        "geosite:apple",
+        "geosite:google-play",
+        "geosite:twitch",
+        "geosite:steam"
+    ],
+    "DirectIp": [
+        "geoip:private",
+        "geoip:test",
+        "geoip:ru",
+        "geoip:by",
+        "geoip:kz"
+    ],
+    "ProxySites": [
+        "geosite:category-ban-ru",
+        "geosite:discord",
+        "geosite:youtube",
+        "geosite:tiktok"
+    ],
+    "ProxyIp": [
+        "geoip:discord"
+    ],
+    "BlockSites": [
+        "geosite:win-spy"
+    ],
+    "BlockIp": [],
+    "DomainStrategy": "IPIfNonMatch"
+}

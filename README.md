@@ -3,7 +3,7 @@
 # [Обновляющаяся ссылка на диплинк для Happ](https://github.com/hydraponique/roscomvpn-happ-routing/blob/main/ROUTING_HAPP_DEEPLINK)
 
 ## Преимущества:
-1) [Кастомный geoip](https://github.com/hydraponique/roscomvpn-geoip) - добавлены все "пророссийские" диапазоны IP (даже забугорные) от VK Company (mail.ru, ok, vk, my.games) и Яндекса (яндекс, я.клауд, я.диск итд). Добавлены IP-адреса Discord (спасибо, @fatyzzz)
+1) [Кастомный geoip](https://github.com/hydraponique/roscomvpn-geoip) - добавлены все "пророссийские" диапазоны IP (даже забугорные) от VK Company (mail.ru, ok, vk, my.games) и Яндекса (яндекс, я.клауд, я.диск итд). Добавлены IP-адреса Discord (спасибо, [@fatyzzz](https://github.com/fatyzzz/))
 2) [Кастомный geosite](https://github.com/hydraponique/roscomvpn-geosite) - куча обновлений по сервисам, урезан максимально под этот роутинг, ни на что более не способен, т.е. чего нет в конфиге роутинга - значит выпилено (весят очень мало по сравнению с дефолтными, тем самым разгружают ядро от фильтрации мусора)
 
 ## DNS:

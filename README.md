@@ -1,6 +1,6 @@
 # Кастомный роутинг `RoscomVPN` для приложения [Happ](https://happ.su)
 
-### [Статическая ссылка (редиректит на диплинк последней версии роутинга)](https://routing.vpn.ru.com) - можно открыть прямо на устройстве с Happ
+### [Статическая ссылка (редиректит на диплинк, можно открыть прямо на устройстве с Happ)](https://routing.vpn.ru.com)
 ### [Raw-DEEPLINK (посмотреть на диплинк-ссылку)](https://raw.githubusercontent.com/hydraponique/roscomvpn-happ-routing/refs/heads/main/RAW.DEEPLINK)
 ### [Raw-JSON (голый JSON для разбора конфига)](https://raw.githubusercontent.com/hydraponique/roscomvpn-happ-routing/refs/heads/main/RAW.JSON)
 

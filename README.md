@@ -1,5 +1,6 @@
 # Кастомный роутинг `RoscomVPN` для приложения [Happ](https://happ.su)
 
+Быстрый и универсальный конфиг без слива IP-адреса сервера тем, кому не нужно знать об использовании ВПН + адекватный по трафику.
 ### [Статическая ссылка (редиректит на диплинк, можно открыть прямо на устройстве)](https://routing.vpn.ru.com)
 ### [Статическая ссылка на Raw-DEEPLINK (посмотреть на диплинк-ссылку)](https://raw.githubusercontent.com/hydraponique/roscomvpn-happ-routing/refs/heads/main/RAW.DEEPLINK)
 ### [Статическая ссылка на Raw-JSON (голый JSON для разбора конфига)](https://raw.githubusercontent.com/hydraponique/roscomvpn-happ-routing/refs/heads/main/RAW.JSON)
@@ -20,4 +21,3 @@
 - Steam, Twitch - идут в `DIRECT` (убираем растрату сотен гигабайт трафика VPN)
 - Youtube, Discord, TikTok - идут в `PROXY` (обновлены списки доменов этих сервисов + список IP-адресов для Discord)
 
-### В целом: просто быстрый и универсальный конфиг с закрытыми дырками тем, кому не нужно знать об использовании ВПН + адекватный по трафику.

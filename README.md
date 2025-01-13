@@ -1,6 +1,6 @@
 # Кастомный роутинг `RoscomVPN` для приложения [Happ](https://happ.su)
 
-# [Статичная ссылка-диплинк для Happ](https://routing.vpn.ru.com)
+# [Статическая ссылка, редиректит на диплинк последней версии роутинга](https://routing.vpn.ru.com) - можно открыть прямо на устройстве с Happ
 
 ## Преимущества:
 1) [Кастомный geoip](https://github.com/hydraponique/roscomvpn-geoip) - добавлены все "пророссийские" диапазоны IP (даже забугорные) от VK Company (Mail.Ru, OK, VK, My.Games/VK Games) и Яндекса (Yandex, Yandex.Cloud, Yandex.Disk итд). Добавлены диапазоны и IP-адреса Discord для проксирования (спасибо, [@fatyzzz](https://github.com/fatyzzz/))

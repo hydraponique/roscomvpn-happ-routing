@@ -5,6 +5,10 @@
     "DomesticDns": "94.140.14.14",
     "Geoipurl": "https://github.com/hydraponique/roscomvpn-geoip/releases/latest/download/geoip.dat",
     "Geositeurl": "https://github.com/hydraponique/roscomvpn-geosite/releases/latest/download/geosite.dat",
+    "RemoteDNSType": "DoU",
+    "RemoteDNSIP": "94.140.14.14",
+    "DomesticDNSType": "DoU",
+    "DomesticDNSIP": "94.140.14.14",
     "DnsHosts": {},
     "DirectSites": [
         "geosite:private",

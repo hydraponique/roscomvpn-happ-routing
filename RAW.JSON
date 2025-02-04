@@ -6,8 +6,10 @@
     "Geoipurl": "https://github.com/hydraponique/roscomvpn-geoip/releases/latest/download/geoip.dat",
     "Geositeurl": "https://github.com/hydraponique/roscomvpn-geosite/releases/latest/download/geosite.dat",
     "RemoteDNSType": "DoU",
+    "RemoteDNSDomain": "https://dns.adguard-dns.com/dns-query",
     "RemoteDNSIP": "94.140.14.14",
     "DomesticDNSType": "DoU",
+    "DomesticDNSDomain": "https://dns.adguard-dns.com/dns-query",
     "DomesticDNSIP": "94.140.14.14",
     "DnsHosts": {},
     "DirectSites": [
@@ -36,7 +38,8 @@
         "geosite:tiktok"
     ],
     "ProxyIp": [
-        "geoip:discord"
+        "geoip:discord",
+        "geoip:threema"
     ],
     "BlockSites": [
         "geosite:win-spy"

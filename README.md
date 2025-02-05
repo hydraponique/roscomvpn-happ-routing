@@ -7,7 +7,7 @@
 ### [Статическая ссылка на Raw-JSON (голый JSON для разбора конфига)](https://raw.githubusercontent.com/hydraponique/roscomvpn-happ-routing/refs/heads/main/RAW.JSON)
 
 ## Преимущества:
-1) [Кастомный geoip](https://github.com/hydraponique/roscomvpn-geoip) - добавлены все "пророссийские" диапазоны IP (даже забугорные) от VK Company (Mail.Ru, OK, VK, My.Games/VK Games) и Яндекса (Yandex, Yandex.Cloud, Yandex.Disk итд). Добавлены диапазоны и IP-адреса Discord для проксирования (спасибо, [@fatyzzz](https://github.com/fatyzzz/))
+1) [Кастомный geoip](https://github.com/hydraponique/roscomvpn-geoip) - добавлены все "пророссийские" диапазоны IP (даже забугорные) от VK Company (Mail.Ru, OK, VK, My.Games/VK Games) и Яндекса (Yandex, Yandex.Cloud, Yandex.Disk итд). Добавлены диапазоны и IP-адреса Discord (в "proxy", спасибо, [@fatyzzz](https://github.com/fatyzzz/)), Threema (в "proxy"), Likee (в "direct")
 2) [Кастомный geosite](https://github.com/hydraponique/roscomvpn-geosite) - куча обновлений по сервисам, урезан максимально под этот роутинг, ни на что более не способен, т.е. чего нет в конфиге роутинга - значит выпилено (весят очень мало по сравнению с дефолтными, тем самым разгружают ядро от фильтрации мусора)
 
 ## DNS:
@@ -20,5 +20,6 @@
 - все существующие русские, белорусские и казахстанские (домены + IP) - идут в `DIRECT` (от греха подальше)
 - все домены ОС Windows для слежки за пользователями - идут в `BLOCK`
 - Steam, Twitch - идут в `DIRECT` (убираем растрату сотен гигабайт трафика VPN)
-- Youtube, Discord, TikTok - идут в `PROXY` (обновлены списки доменов этих сервисов + список IP-адресов для Discord)
+- Youtube, Discord, Threema, TikTok - идут в `PROXY` (обновлены списки доменов этих сервисов + список IP-адресов для Discord и Threema)
+- решена проблема с приложением Likee - идут в `DIRECT` (открывается стабильно только с домашнего IP)
 

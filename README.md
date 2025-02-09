@@ -20,4 +20,4 @@
 - все существующие русские, белорусские и казахстанские (домены + IP) - идут в `DIRECT` (от греха подальше)
 - все домены ОС Windows для слежки за пользователями - идут в `BLOCK`
 - Steam, Twitch - идут в `DIRECT` (убираем растрату сотен гигабайт трафика VPN)
-- Youtube, Discord, Threema, TikTok - идут в `PROXY` (обновлены списки доменов этих сервисов + список IP-адресов для Discord и Threema)
+- Youtube, Discord, Threema, TikTok, Signal - идут в `PROXY` (обновлены списки доменов этих сервисов + список IP-адресов для Discord и Threema)

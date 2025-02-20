@@ -11,7 +11,7 @@
     "DomesticDNSIP": "94.140.15.15",
     "Geoipurl": "https://github.com/hydraponique/roscomvpn-geoip/releases/latest/download/geoip.dat",
     "Geositeurl": "https://github.com/hydraponique/roscomvpn-geosite/releases/latest/download/geosite.dat",
-    "LastUpdated": "1739993333",
+    "LastUpdated": "1740060000",
     "DnsHosts": {},
     "DirectSites": [
         "geosite:private",
@@ -47,5 +47,5 @@
     ],
     "BlockIp": [],
     "DomainStrategy": "IPIfNonMatch",
-    "FakeDNS": "false"
+    "FakeDNS": "true"
 }

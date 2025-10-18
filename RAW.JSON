@@ -11,8 +11,8 @@
     "DomesticDNSDomain": "https://dns.adguard.com/dns-query",
     "DomesticDNSIP": "94.140.15.15",
     "Geoipurl": "https://github.com/hydraponique/roscomvpn-geoip/releases/download/202510180601/geoip.dat",
-    "Geositeurl": "https://github.com/hydraponique/roscomvpn-geosite/releases/download/202510180533/geosite.dat",
-    "LastUpdated": "1760745600",
+    "Geositeurl": "https://github.com/hydraponique/roscomvpn-geosite/releases/download/202510180849/geosite.dat",
+    "LastUpdated": "1760774400",
     "DnsHosts": {},
     "DirectSites": [
         "geosite:private",

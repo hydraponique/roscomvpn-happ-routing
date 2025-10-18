@@ -1,6 +1,7 @@
 {
     "Name": "RoscomVPN",
     "GlobalProxy": "true",
+    "UseChunkFiles": "true",
     "RemoteDns": "94.140.14.14",
     "DomesticDns": "94.140.15.15",
     "RemoteDNSType": "DoU",
@@ -9,9 +10,9 @@
     "DomesticDNSType": "DoU",
     "DomesticDNSDomain": "https://dns.adguard.com/dns-query",
     "DomesticDNSIP": "94.140.15.15",
-    "Geoipurl": "https://github.com/hydraponique/roscomvpn-geoip/releases/download/202502201412/geoip.dat",
-    "Geositeurl": "https://github.com/hydraponique/roscomvpn-geosite/releases/download/202502220015/geosite.dat",
-    "LastUpdated": "1740183000",
+    "Geoipurl": "https://github.com/hydraponique/roscomvpn-geoip/releases/download/202510180601/geoip.dat",
+    "Geositeurl": "https://github.com/hydraponique/roscomvpn-geosite/releases/download/202510180533/geosite.dat",
+    "LastUpdated": "1760745600",
     "DnsHosts": {},
     "DirectSites": [
         "geosite:private",
@@ -25,10 +26,7 @@
         "geosite:steam"
     ],
     "DirectIp": [
-        "geoip:private",
-        "geoip:ru",
-        "geoip:by",
-        "geoip:kz"
+        "geoip:direct"
     ],
     "ProxySites": [
         "geosite:category-ban-ru",
@@ -38,8 +36,7 @@
         "geosite:signal"
     ],
     "ProxyIp": [
-        "geoip:discord",
-        "geoip:threema"
+        "geoip:proxy"
     ],
     "BlockSites": [
         "geosite:win-spy",

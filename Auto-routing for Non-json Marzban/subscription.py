@@ -1,5 +1,6 @@
 import re
 import requests
+
 from distutils.version import LooseVersion
 
 from fastapi import APIRouter, Depends, Header, Path, Request, Response
@@ -65,12 +66,11 @@ def user_subscription(
                 {"user": user}
             )
         )
-
-    crud.update_user_sub(db, dbuser, user_agent)
-    
+        
     routingstatic = requests.head("https://routing.vpn.ru.com")
     routingurl = routingstatic.headers['Location']
     
+    crud.update_user_sub(db, dbuser, user_agent)
     response_headers = {
         "routing": routingurl,
         "content-disposition": f'attachment; filename="{user.username}"',
@@ -178,10 +178,10 @@ def user_subscription_with_client_type(
 ):
     """Provides a subscription link based on the specified client type (e.g., Clash, V2Ray)."""
     user: UserResponse = UserResponse.model_validate(dbuser)
-
+    
     routingstatic = requests.head("https://routing.vpn.ru.com")
     routingurl = routingstatic.headers['Location']
-
+    
     response_headers = {
         "routing": routingurl,
         "content-disposition": f'attachment; filename="{user.username}"',

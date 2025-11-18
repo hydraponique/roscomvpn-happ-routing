@@ -10,9 +10,9 @@
     "DomesticDNSType": "DoU",
     "DomesticDNSDomain": "https://dns.adguard.com/dns-query",
     "DomesticDNSIP": "94.140.15.15",
-    "Geoipurl": "https://github.com/hydraponique/roscomvpn-geoip/releases/download/202510190148/geoip.dat",
-    "Geositeurl": "https://github.com/hydraponique/roscomvpn-geosite/releases/download/202510201045/geosite.dat",
-    "LastUpdated": "1760936400",
+    "Geoipurl": "https://github.com/hydraponique/roscomvpn-geoip/releases/download/202511180318/geoip.dat",
+    "Geositeurl": "https://github.com/hydraponique/roscomvpn-geosite/releases/download/202511180349/geosite.dat",
+    "LastUpdated": "1763430000",
     "DnsHosts": {},
     "DirectSites": [
         "geosite:private",
@@ -36,12 +36,11 @@
         "geosite:tiktok",
         "geosite:signal"
     ],
-    "ProxyIp": [
-        "geoip:proxy"
-    ],
+    "ProxyIp": [],
     "BlockSites": [
         "geosite:win-spy",
-        "geosite:torrent"
+        "geosite:torrent",
+        "geosite:category-ads"
     ],
     "BlockIp": [],
     "DomainStrategy": "IPIfNonMatch",

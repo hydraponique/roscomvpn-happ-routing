@@ -11,8 +11,8 @@
     "DomesticDNSDomain": "https://dns.adguard.com/dns-query",
     "DomesticDNSIP": "94.140.15.15",
     "Geoipurl": "https://github.com/hydraponique/roscomvpn-geoip/releases/download/202511190135/geoip.dat",
-    "Geositeurl": "https://github.com/hydraponique/roscomvpn-geosite/releases/download/202511190137/geosite.dat",
-    "LastUpdated": "1763510000",
+    "Geositeurl": "https://github.com/hydraponique/roscomvpn-geosite/releases/download/202511190236/geosite.dat",
+    "LastUpdated": "1763511111",
     "DnsHosts": {},
     "DirectSites": [
         "geosite:private",
@@ -22,7 +22,8 @@
         "geosite:google-play",
         "geosite:epicgames",
         "geosite:riot",
-        "geosite:steam"
+        "geosite:steam",
+        "geosite:twitch"
     ],
     "DirectIp": [
         "geoip:direct"

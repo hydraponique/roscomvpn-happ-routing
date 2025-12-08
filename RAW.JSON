@@ -10,9 +10,9 @@
     "DomesticDNSType": "DoU",
     "DomesticDNSDomain": "https://freedns.controld.com/x-hagezi-pro",
     "DomesticDNSIP": "76.76.2.41",
-    "Geoipurl": "https://github.com/hydraponique/roscomvpn-geoip/releases/download/202511270116/geoip.dat",
+    "Geoipurl": "https://github.com/hydraponique/roscomvpn-geoip/releases/download/202512082209/geoip.dat",
     "Geositeurl": "https://github.com/hydraponique/roscomvpn-geosite/releases/download/202511212053/geosite.dat",
-    "LastUpdated": "1764266666",
+    "LastUpdated": "1765230000",
     "DnsHosts": {},
     "DirectSites": [
         "geosite:private",

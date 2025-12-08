@@ -2,7 +2,6 @@ import re
 import requests
 
 from distutils.version import LooseVersion
-
 from fastapi import APIRouter, Depends, Header, Path, Request, Response
 from fastapi.responses import HTMLResponse
 
@@ -66,13 +65,9 @@ def user_subscription(
                 {"user": user}
             )
         )
-        
-    routingstatic = requests.head("https://routing.vpn.ru.com")
-    routingurl = routingstatic.headers['Location']
     
     crud.update_user_sub(db, dbuser, user_agent)
     response_headers = {
-        "routing": routingurl,
         "content-disposition": f'attachment; filename="{user.username}"',
         "profile-web-page-url": str(request.url),
         "support-url": SUB_SUPPORT_URL,
@@ -83,6 +78,16 @@ def user_subscription(
             for key, val in get_subscription_user_info(user).items()
         )
     }
+
+    # Пытаемся получить routing URL, но игнорируем любые ошибки
+    try:
+        routingstatic = requests.head("https://routing.vpn.ru.com", timeout=3)
+        if 'Location' in routingstatic.headers:
+            routingurl = routingstatic.headers['Location']
+            response_headers["routing"] = routingurl
+    except Exception:
+        # Если возникает любая ошибка, просто не добавляем заголовок routing
+        pass
 
     if re.match(r'^([Cc]lash-verge|[Cc]lash[-\.]?[Mm]eta|[Ff][Ll][Cc]lash|[Mm]ihomo)', user_agent):
         conf = generate_subscription(user=user, config_format="clash-meta", as_base64=False, reverse=False)
@@ -138,8 +143,6 @@ def user_subscription(
             conf = generate_subscription(user=user, config_format="v2ray", as_base64=True, reverse=False)
             return Response(content=conf, media_type="text/plain", headers=response_headers)
 
-
-
     else:
         conf = generate_subscription(user=user, config_format="v2ray", as_base64=True, reverse=False)
         return Response(content=conf, media_type="text/plain", headers=response_headers)
@@ -179,11 +182,7 @@ def user_subscription_with_client_type(
     """Provides a subscription link based on the specified client type (e.g., Clash, V2Ray)."""
     user: UserResponse = UserResponse.model_validate(dbuser)
     
-    routingstatic = requests.head("https://routing.vpn.ru.com")
-    routingurl = routingstatic.headers['Location']
-    
     response_headers = {
-        "routing": routingurl,
         "content-disposition": f'attachment; filename="{user.username}"',
         "profile-web-page-url": str(request.url),
         "support-url": SUB_SUPPORT_URL,
@@ -194,6 +193,16 @@ def user_subscription_with_client_type(
             for key, val in get_subscription_user_info(user).items()
         )
     }
+
+    # Пытаемся получить routing URL, но игнорируем любые ошибки
+    try:
+        routingstatic = requests.head("https://routing.vpn.ru.com", timeout=3)
+        if 'Location' in routingstatic.headers:
+            routingurl = routingstatic.headers['Location']
+            response_headers["routing"] = routingurl
+    except Exception:
+        # Если возникает любая ошибка, просто не добавляем заголовок routing
+        pass
 
     config = client_config.get(client_type)
     conf = generate_subscription(user=user,

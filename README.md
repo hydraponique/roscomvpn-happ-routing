@@ -3,22 +3,24 @@
 
 **Таргет-страна:** Россия 🇷🇺 + Беларусь 🇧🇾
 
+##№ ВНИМАНИЕ! СТАРЫЙ ДОМЕН БЫЛ ЗАБЛОКИРОВАН РОСКОМПОЗОРОМ, ПЕРЕЕХАЛИ НА ROUTING.HELP
+
 ---
 
 ## 🚀 Установка c блокировщиком рекламы (ControlD + HaGeZi DNS Pro Blocklists)
 
 | Способ | Ссылка | Описание |
 |--------|--------|-----------|
-| **📱 Быстрая установка** | [Статическая ссылка](https://routing.vpn.ru.com) | Редиректит на диплинк, нужно открыть прямо на устройстве |
-| **🔗 RAW.DEEPLINK** | [Просмотр диплинк-ссылки](https://raw.githubusercontent.com/hydraponique/roscomvpn-happ-routing/refs/heads/main/RAW.DEEPLINK) | Диплинк ссылка в текстовом формате |
-| **📊 RAW.JSON** | [Голый JSON конфиг](https://raw.githubusercontent.com/hydraponique/roscomvpn-happ-routing/refs/heads/main/RAW.JSON) | Незашифрованный JSON-конфиг роутинга |
+| **📱 Быстрая установка** | [Статическая ссылка](https://routing.help) | Редиректит на диплинк, нужно открыть прямо на устройстве |
+| **🔗 DEFAULT.DEEPLINK** | [Просмотр диплинк-ссылки](https://raw.githubusercontent.com/hydraponique/roscomvpn-happ-routing/refs/heads/main/DEFAULT.DEEPLINK) | Диплинк ссылка в текстовом формате |
+| **📊 DEFAULT.JSON** | [Голый JSON конфиг](https://raw.githubusercontent.com/hydraponique/roscomvpn-happ-routing/refs/heads/main/DEFAULT.JSON) | Незашифрованный JSON-конфиг роутинга |
 
 ## 🚀 Установка c обычным DNS (ControlD Unfiltered)
 | Способ | Ссылка | Описание |
 |--------|--------|-----------|
-| **📱 Быстрая установка** | [Статическая ссылка](https://unfiltered.vpn.ru.com) | Редиректит на диплинк, нужно открыть прямо на устройстве |
-| **🔗 RAWUNFILTERED.DEEPLINK** | [Просмотр диплинк-ссылки](https://raw.githubusercontent.com/hydraponique/roscomvpn-happ-routing/refs/heads/main/RAWUNFILTERED.DEEPLINK) | Диплинк ссылка в текстовом формате |
-| **📊 RAWUNFILTERED.JSON** | [Голый JSON конфиг](https://raw.githubusercontent.com/hydraponique/roscomvpn-happ-routing/refs/heads/main/RAWUNFILTERED.JSON) | Незашифрованный JSON-конфиг роутинга |
+| **📱 Быстрая установка** | [Статическая ссылка](https://routing.help/unfiltered) | Редиректит на диплинк, нужно открыть прямо на устройстве |
+| **🔗 UNFILTERED.DEEPLINK** | [Просмотр диплинк-ссылки](https://raw.githubusercontent.com/hydraponique/roscomvpn-happ-routing/refs/heads/main/UNFILTERED.DEEPLINK) | Диплинк ссылка в текстовом формате |
+| **📊 UNFILTERED.JSON** | [Голый JSON конфиг](https://raw.githubusercontent.com/hydraponique/roscomvpn-happ-routing/refs/heads/main/UNFILTERED.JSON) | Незашифрованный JSON-конфиг роутинга |
 ---
 
 ## ✨ Преимущества

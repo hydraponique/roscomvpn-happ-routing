@@ -81,7 +81,7 @@ def user_subscription(
 
     # Пытаемся получить routing URL, но игнорируем любые ошибки
     try:
-        routingstatic = requests.head("https://json.vpn.ru.com", timeout=3)
+        routingstatic = requests.head("https://routing.help", timeout=1)
         if 'Location' in routingstatic.headers:
             routingurl = routingstatic.headers['Location']
             response_headers["routing"] = routingurl
@@ -196,7 +196,7 @@ def user_subscription_with_client_type(
 
     # Пытаемся получить routing URL, но игнорируем любые ошибки
     try:
-        routingstatic = requests.head("https://json.vpn.ru.com", timeout=3)
+        routingstatic = requests.head("https://routing.help", timeout=1)
         if 'Location' in routingstatic.headers:
             routingurl = routingstatic.headers['Location']
             response_headers["routing"] = routingurl

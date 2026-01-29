@@ -72,8 +72,9 @@ def user_subscription(
         subscription_settings.template_on_acceptance
         and "text/html" in request.headers.get("Accept", [])
     ):
+        # FIX: Added 'db' as the first argument as required by your version's utils/share.py
         return HTMLResponse(
-            generate_subscription_template(db_user, subscription_settings)
+            generate_subscription_template(db, db_user, subscription_settings)
         )
 
     response_headers = {
@@ -88,22 +89,23 @@ def user_subscription(
         ),
     }
     
-        # Пытаемся получить routing URL, но игнорируем любые ошибки
+    # --- AUTO-ROUTING LOGIC ---
     try:
         routingstatic = requests.head("https://routing.help", timeout=1)
         if 'Location' in routingstatic.headers:
             routingurl = routingstatic.headers['Location']
             response_headers["routing"] = routingurl
     except Exception:
-        # Если возникает любая ошибка, просто не добавляем заголовок routing
         pass
+    # --------------------------
 
     for rule in subscription_settings.rules:
         if re.match(rule.pattern, user_agent):
             if rule.result.value == "template":
+                # FIX: Added 'db' argument
                 return HTMLResponse(
                     generate_subscription_template(
-                        db_user, subscription_settings
+                        db, db_user, subscription_settings
                     )
                 )
             elif rule.result.value == "block":
@@ -115,7 +117,9 @@ def user_subscription(
                 b64 = False
                 config_format = rule.result.value
 
+            # FIX: Added 'db' argument to generate_subscription
             conf = generate_subscription(
+                db=db,
                 user=db_user,
                 config_format=config_format,
                 as_base64=b64,
@@ -191,17 +195,19 @@ def user_subscription_with_client_type(
         ),
     }
     
-    # Пытаемся получить routing URL, но игнорируем любые ошибки
+    # --- AUTO-ROUTING LOGIC ---
     try:
         routingstatic = requests.head("https://routing.help", timeout=1)
         if 'Location' in routingstatic.headers:
             routingurl = routingstatic.headers['Location']
             response_headers["routing"] = routingurl
     except Exception:
-        # Если возникает любая ошибка, просто не добавляем заголовок routing
         pass
+    # --------------------------
 
+    # FIX: Added 'db' argument to generate_subscription
     conf = generate_subscription(
+        db=db,
         user=db_user,
         config_format="links" if client_type == "v2ray" else client_type,
         as_base64=client_type == "v2ray",

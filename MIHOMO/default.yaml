@@ -166,31 +166,16 @@ proxy-groups:
   proxies:
   - PASS
 rule-providers:
+  # --- Доменные провайдеры (classical .yaml) ---
   private-domains:
-    type: http
-    behavior: domain
-    format: mrs
-    url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/private.mrs
-    path: ./ruleset/geosite-private.mrs
-    proxy: ⚡️ Авто
-    interval: 2592000
-  private-domains-yaml:
     type: http
     behavior: classical
     format: yaml
     url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/private.yaml
-    path: ./ruleset/geosite-private.yaml
+    path: ./ruleset/private-domains.yaml
     proxy: ⚡️ Авто
     interval: 2592000
   category-ru:
-    type: http
-    behavior: domain
-    format: mrs
-    url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/category-ru.mrs
-    path: ./ruleset/category-ru.mrs
-    proxy: ⚡️ Авто
-    interval: 86400
-  category-ru-yaml:
     type: http
     behavior: classical
     format: yaml
@@ -200,21 +185,13 @@ rule-providers:
     interval: 86400
   whitelist:
     type: http
-    behavior: domain
-    format: mrs
-    url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/whitelist.mrs
-    path: ./ruleset/whitelist.mrs
+    behavior: classical
+    format: yaml
+    url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/whitelist.yaml
+    path: ./ruleset/whitelist.yaml
     proxy: ⚡️ Авто
     interval: 86400
   microsoft:
-    type: http
-    behavior: domain
-    format: mrs
-    url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/microsoft.mrs
-    path: ./ruleset/microsoft.mrs
-    proxy: ⚡️ Авто
-    interval: 86400
-  microsoft-yaml:
     type: http
     behavior: classical
     format: yaml
@@ -224,14 +201,6 @@ rule-providers:
     interval: 86400
   apple:
     type: http
-    behavior: domain
-    format: mrs
-    url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/apple.mrs
-    path: ./ruleset/apple.mrs
-    proxy: ⚡️ Авто
-    interval: 86400
-  apple-yaml:
-    type: http
     behavior: classical
     format: yaml
     url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/apple.yaml
@@ -240,45 +209,13 @@ rule-providers:
     interval: 86400
   google-play:
     type: http
-    behavior: domain
-    format: mrs
-    url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/google-play.mrs
-    path: ./ruleset/google-play.mrs
-    proxy: ⚡️ Авто
-    interval: 86400
-  google-play-yaml:
-    type: http
     behavior: classical
     format: yaml
     url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/google-play.yaml
     path: ./ruleset/google-play.yaml
     proxy: ⚡️ Авто
     interval: 86400
-  epicgames:
-    type: http
-    behavior: domain
-    format: mrs
-    url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/epicgames.mrs
-    path: ./ruleset/epicgames.mrs
-    proxy: ⚡️ Авто
-    interval: 86400
-  origin:
-    type: http
-    behavior: domain
-    format: mrs
-    url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/origin.mrs
-    path: ./ruleset/origin.mrs
-    proxy: ⚡️ Авто
-    interval: 86400
   riot:
-    type: http
-    behavior: domain
-    format: mrs
-    url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/riot.mrs
-    path: ./ruleset/riot.mrs
-    proxy: ⚡️ Авто
-    interval: 86400
-  riot-yaml:
     type: http
     behavior: classical
     format: yaml
@@ -286,23 +223,7 @@ rule-providers:
     path: ./ruleset/riot.yaml
     proxy: ⚡️ Авто
     interval: 86400
-  escapefromtarkov:
-    type: http
-    behavior: domain
-    format: mrs
-    url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/escapefromtarkov.mrs
-    path: ./ruleset/escapefromtarkov.mrs
-    proxy: ⚡️ Авто
-    interval: 86400
   steam:
-    type: http
-    behavior: domain
-    format: mrs
-    url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/steam.mrs
-    path: ./ruleset/steam.mrs
-    proxy: ⚡️ Авто
-    interval: 86400
-  steam-yaml:
     type: http
     behavior: classical
     format: yaml
@@ -310,23 +231,7 @@ rule-providers:
     path: ./ruleset/steam.yaml
     proxy: ⚡️ Авто
     interval: 86400
-  twitch:
-    type: http
-    behavior: domain
-    format: mrs
-    url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/twitch.mrs
-    path: ./ruleset/twitch.mrs
-    proxy: ⚡️ Авто
-    interval: 86400
   pinterest:
-    type: http
-    behavior: domain
-    format: mrs
-    url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/pinterest.mrs
-    path: ./ruleset/pinterest.mrs
-    proxy: ⚡️ Авто
-    interval: 86400
-  pinterest-yaml:
     type: http
     behavior: classical
     format: yaml
@@ -334,14 +239,103 @@ rule-providers:
     path: ./ruleset/pinterest.yaml
     proxy: ⚡️ Авто
     interval: 86400
-  faceit:
+  github:
     type: http
-    behavior: domain
-    format: mrs
-    url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/faceit.mrs
-    path: ./ruleset/faceit.mrs
+    behavior: classical
+    format: yaml
+    url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/github.yaml
+    path: ./ruleset/github.yaml
     proxy: ⚡️ Авто
     interval: 86400
+  youtube:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/youtube.yaml
+    path: ./ruleset/youtube.yaml
+    proxy: ⚡️ Авто
+    interval: 86400
+  torrent-domains:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/torrent.yaml
+    path: ./ruleset/torrent-domains.yaml
+    proxy: ⚡️ Авто
+    interval: 86400
+  category-ads:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/category-ads.yaml
+    path: ./ruleset/category-ads.yaml
+    proxy: ⚡️ Авто
+    interval: 86400
+  twitch-ads:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/twitch-ads.yaml
+    path: ./ruleset/twitch-ads.yaml
+    proxy: ⚡️ Авто
+    interval: 86400
+  epicgames:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/epicgames.yaml
+    path: ./ruleset/epicgames.yaml
+    proxy: ⚡️ Авто
+    interval: 86400
+  origin:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/origin.yaml
+    path: ./ruleset/origin.yaml
+    proxy: ⚡️ Авто
+    interval: 86400
+  escapefromtarkov:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/escapefromtarkov.yaml
+    path: ./ruleset/escapefromtarkov.yaml
+    proxy: ⚡️ Авто
+    interval: 86400
+  twitch:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/twitch.yaml
+    path: ./ruleset/twitch.yaml
+    proxy: ⚡️ Авто
+    interval: 86400
+  faceit:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/faceit.yaml
+    path: ./ruleset/faceit.yaml
+    proxy: ⚡️ Авто
+    interval: 86400
+  telegram:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/telegram.yaml
+    path: ./ruleset/telegram.yaml
+    proxy: ⚡️ Авто
+    interval: 86400
+  win-spy:
+    type: http
+    behavior: classical
+    format: yaml
+    url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/win-spy.yaml
+    path: ./ruleset/win-spy.yaml
+    proxy: ⚡️ Авто
+    interval: 86400
+  # --- IP providers (unchanged) ---
   private-ips:
     type: http
     behavior: ipcidr
@@ -358,86 +352,7 @@ rule-providers:
     path: ./ruleset/direct-ips.mrs
     proxy: ⚡️ Авто
     interval: 86400
-  github:
-    type: http
-    behavior: domain
-    format: mrs
-    url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/github.mrs
-    path: ./ruleset/github.mrs
-    proxy: ⚡️ Авто
-    interval: 86400
-  github-yaml:
-    type: http
-    behavior: classical
-    format: yaml
-    url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/github.yaml
-    path: ./ruleset/github.yaml
-    proxy: ⚡️ Авто
-    interval: 86400
-  twitch-ads:
-    type: http
-    behavior: classical
-    format: yaml
-    url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/twitch-ads.yaml
-    path: ./ruleset/twitch-ads.yaml
-    proxy: ⚡️ Авто
-    interval: 86400
-  youtube:
-    type: http
-    behavior: domain
-    format: mrs
-    url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/youtube.mrs
-    path: ./ruleset/youtube.mrs
-    proxy: ⚡️ Авто
-    interval: 86400
-  youtube-yaml:
-    type: http
-    behavior: classical
-    format: yaml
-    url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/youtube.yaml
-    path: ./ruleset/youtube.yaml
-    proxy: ⚡️ Авто
-    interval: 86400
-  telegram:
-    type: http
-    behavior: domain
-    format: mrs
-    url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/telegram.mrs
-    path: ./ruleset/telegram.mrs
-    proxy: ⚡️ Авто
-    interval: 86400
-  win-spy:
-    type: http
-    behavior: domain
-    format: mrs
-    url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/win-spy.mrs
-    path: ./ruleset/win-spy.mrs
-    proxy: ⚡️ Авто
-    interval: 86400
-  torrent-domains:
-    type: http
-    behavior: domain
-    format: mrs
-    url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/torrent.mrs
-    path: ./ruleset/torrent-domains.mrs
-    proxy: ⚡️ Авто
-    interval: 86400
-  torrent-domains-yaml:
-    type: http
-    behavior: classical
-    format: yaml
-    url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/torrent.yaml
-    path: ./ruleset/torrent-domains.yaml
-    proxy: ⚡️ Авто
-    interval: 86400
-  category-ads:
-    type: http
-    behavior: classical
-    format: yaml
-    url: https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/mihomo/category-ads.yaml
-    path: ./ruleset/category-ads.yaml
-    proxy: ⚡️ Авто
-    interval: 86400
+  # --- External providers (unchanged) ---
   torrent-clients:
     type: http
     behavior: classical
@@ -468,36 +383,25 @@ rules:
   - IP-CIDR,::/0,REJECT-DROP,no-resolve
   - AND,((NETWORK,UDP),(DST-PORT,443)),REJECT-DROP
   - RULE-SET,private-domains,DIRECT
-  - RULE-SET,private-domains-yaml,DIRECT
   - RULE-SET,category-ads,REJECT-DROP
   - RULE-SET,win-spy,REJECT-DROP
   - RULE-SET,torrent-domains,DIRECT
-  - RULE-SET,torrent-domains-yaml,DIRECT
   - RULE-SET,twitch-ads,PROXY
   - RULE-SET,youtube,📺 Youtube
-  - RULE-SET,youtube-yaml,📺 Youtube
   - RULE-SET,telegram,PROXY
   - RULE-SET,github,PROXY
-  - RULE-SET,github-yaml,PROXY
   - RULE-SET,epicgames,🎮 Игры
   - RULE-SET,origin,🎮 Игры
   - RULE-SET,riot,🎮 Игры
-  - RULE-SET,riot-yaml,🎮 Игры
   - RULE-SET,escapefromtarkov,🎮 Игры
   - RULE-SET,steam,🎮 Игры
-  - RULE-SET,steam-yaml,🎮 Игры
   - RULE-SET,faceit,🎮 Игры
   - RULE-SET,twitch,DIRECT
   - RULE-SET,microsoft,DIRECT
-  - RULE-SET,microsoft-yaml,DIRECT
   - RULE-SET,apple,DIRECT
-  - RULE-SET,apple-yaml,DIRECT
   - RULE-SET,google-play,DIRECT
-  - RULE-SET,google-play-yaml,DIRECT
   - RULE-SET,pinterest,DIRECT
-  - RULE-SET,pinterest-yaml,DIRECT
   - RULE-SET,category-ru,DIRECT
-  - RULE-SET,category-ru-yaml,DIRECT
   - RULE-SET,whitelist,DIRECT
   - RULE-SET,torrent-clients,DIRECT
   - PROCESS-NAME-REGEX,discord,💬 Discord.exe

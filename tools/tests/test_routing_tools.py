@@ -10,7 +10,7 @@ def import_module_from_path(module_name, file_path):
     return module
 
 # Resolve paths
-TOOLS_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'tools'))
+TOOLS_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
 streisand = import_module_from_path('streisand_link', os.path.join(TOOLS_DIR, 'streisand', 'generate_streisand_link.py'))
 v2rayng = import_module_from_path('v2rayng_qr', os.path.join(TOOLS_DIR, 'v2rayNG', 'generate_v2rayng_routing_qr.py'))
@@ -90,4 +90,4 @@ def test_geoasset_urls_releases():
 
 if __name__ == "__main__":
     # Ensure pytest or similar runner is used
-    print("Run `pytest tests/test_routing_tools.py` to execute these tests.")
+    print("Run `pytest tools/tests/test_routing_tools.py` to execute these tests.")

@@ -6,19 +6,16 @@ Two QR codes are produced — one for geoip.dat and one for geosite.dat.
 Users can scan these in v2RayNG -> Settings -> Geoasset update to
 quickly set the correct geoasset URLs.
 
-By default the stable GitHub Releases URLs are used: they always
-point to the latest version and do not change. You can also pass
---source cdn to use the versioned jsdelivr CDN URLs from DEFAULT.JSON.
+By default, the script uses branch-based jsdelivr CDN URLs.
+You can also pass `--source releases` to use the GitHub Releases URLs.
 
 Dependencies: Python 3.8+, qrcode[pil]
     pip install qrcode[pil]
 """
 
 import argparse
-import json
 import os
 import sys
-import urllib.request
 
 try:
     import qrcode
@@ -30,10 +27,11 @@ except ImportError:
     )
     sys.exit(1)
 
-DEFAULT_CONFIG_URL = (
-    "https://raw.githubusercontent.com/hydraponique/"
-    "roscomvpn-routing/refs/heads/main/HAPP/DEFAULT.JSON"
-)
+# Static branch-based CDN URLs (unversioned, redirects to latest)
+CDN_URLS = {
+    "geoip.dat": "https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geoip/release/geoip.dat",
+    "geosite.dat": "https://cdn.jsdelivr.net/gh/hydraponique/roscomvpn-geosite/release/geosite.dat",
+}
 
 # Stable URLs that always resolve to the latest release
 RELEASES_URLS = {
@@ -42,27 +40,11 @@ RELEASES_URLS = {
 }
 
 
-def fetch_config(url: str) -> dict:
-    """Download and parse the HAPP DEFAULT.JSON config."""
-    print(f"[*] Fetching config from {url} ...")
-    try:
-        with urllib.request.urlopen(url) as resp:
-            return json.loads(resp.read().decode("utf-8"))
-    except Exception as exc:
-        print(f"[!] Failed to fetch config: {exc}", file=sys.stderr)
-        sys.exit(1)
-
-
-def get_urls(source: str, config_url: str) -> dict[str, str]:
+def get_urls(source: str) -> dict[str, str]:
     """Return geoasset URLs based on the chosen source."""
     if source == "releases":
         return dict(RELEASES_URLS)
-
-    config = fetch_config(config_url)
-    return {
-        "geoip.dat": config.get("Geoipurl", RELEASES_URLS["geoip.dat"]),
-        "geosite.dat": config.get("Geositeurl", RELEASES_URLS["geosite.dat"]),
-    }
+    return dict(CDN_URLS)
 
 
 def generate_qr(data: str, output_path: str) -> None:
@@ -85,17 +67,12 @@ def main() -> None:
     )
     parser.add_argument(
         "--source",
-        choices=["releases", "cdn"],
-        default="releases",
+        choices=["cdn", "releases"],
+        default="cdn",
         help=(
-            "'releases' — stable GitHub Releases URLs (default). "
-            "'cdn' — versioned jsdelivr CDN URLs from DEFAULT.JSON."
+            "'cdn' — unversioned jsdelivr CDN URLs (default). "
+            "'releases' — stable GitHub Releases URLs."
         ),
-    )
-    parser.add_argument(
-        "--url",
-        default=DEFAULT_CONFIG_URL,
-        help="URL of the HAPP DEFAULT.JSON config (used with --source cdn).",
     )
     parser.add_argument(
         "-d", "--output-dir",
@@ -104,7 +81,7 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    urls = get_urls(args.source, args.url)
+    urls = get_urls(args.source)
 
     os.makedirs(args.output_dir, exist_ok=True)
 

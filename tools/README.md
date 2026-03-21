@@ -54,11 +54,11 @@ Generates `v2rayng_routing_qr.png` and prints the JSON to stdout for clipboard i
 **Geoasset URL QR codes:**
 
 ```bash
-# Stable GitHub Releases URLs (recommended)
+# Unversioned jsdelivr CDN URLs (default, recommended)
 python tools/v2rayNG/generate_geoasset_qr.py
 
-# Versioned jsdelivr CDN URLs from DEFAULT.JSON
-python tools/v2rayNG/generate_geoasset_qr.py --source cdn
+# GitHub Releases URLs
+python tools/v2rayNG/generate_geoasset_qr.py --source releases
 ```
 
 Generates `geoip.dat.png` and `geosite.dat.png`. Scan in v2RayNG → Settings → Geoasset update.

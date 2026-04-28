@@ -1,5 +1,5 @@
 {
-  "Name": "RoscomVPN",
+  "Name": "NeoTUN",
   "GlobalProxy": "true",
   "UseChunkFiles": "true",
   "RemoteDns": "8.8.8.8",

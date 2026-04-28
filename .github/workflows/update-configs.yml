@@ -11,6 +11,9 @@ on:
       - "LICENSE"
   repository_dispatch:
     types: [update-routing-configs]
+  schedule:
+    # Проверяем обновления geoip/geosite каждые 6 часов
+    - cron: '0 */6 * * *'
 
 permissions:
   contents: write
@@ -27,9 +30,9 @@ jobs:
       incy_json: ${{ steps.deeplinks.outputs.incy_json }}
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v4
 
-      - name: Update HAPP configs
+      - name: Update HAPP configs (geoip/geosite URLs only, preserve Name and rules)
         shell: bash
         run: |
           set -euo pipefail
@@ -74,30 +77,17 @@ jobs:
             curl -fsSL --retry 3 --retry-delay 2 --retry-connrefused -I "$geoip_url" >/dev/null
             curl -fsSL --retry 3 --retry-delay 2 --retry-connrefused -I "$geosite_url" >/dev/null
 
-            tmp="$(mktemp)"
-            jq \
-              --arg ts "$now_epoch" \
-              --arg geoip "$geoip_url" \
-              --arg geosite "$geosite_url" \
-              '.LastUpdated = $ts | .Geoipurl = $geoip | .Geositeurl = $geosite' \
-              HAPP/DEFAULT.JSON > "$tmp"
-            mv "$tmp" HAPP/DEFAULT.JSON
-            tmp="$(mktemp)"
-            jq \
-              --arg ts "$now_epoch" \
-              --arg geoip "$geoip_url" \
-              --arg geosite "$geosite_url" \
-              '.LastUpdated = $ts | .Geoipurl = $geoip | .Geositeurl = $geosite' \
-              HAPP/WHITELIST.JSON > "$tmp"
-            mv "$tmp" HAPP/WHITELIST.JSON
-            tmp="$(mktemp)"
-            jq \
-              --arg ts "$now_epoch" \
-              --arg geoip "$geoip_url" \
-              --arg geosite "$geosite_url" \
-              '.LastUpdated = $ts | .Geoipurl = $geoip | .Geositeurl = $geosite' \
-              HAPP/JSONSUB.JSON > "$tmp"
-            mv "$tmp" HAPP/JSONSUB.JSON
+            # Обновляем ТОЛЬКО Geoipurl, Geositeurl и LastUpdated — Name и правила не трогаем
+            for f in HAPP/DEFAULT.JSON HAPP/WHITELIST.JSON HAPP/JSONSUB.JSON; do
+              tmp="$(mktemp)"
+              jq \
+                --arg ts "$now_epoch" \
+                --arg geoip "$geoip_url" \
+                --arg geosite "$geosite_url" \
+                '.LastUpdated = $ts | .Geoipurl = $geoip | .Geositeurl = $geosite' \
+                "$f" > "$tmp"
+              mv "$tmp" "$f"
+            done
           fi
 
           default_b64="$(jq -c . HAPP/DEFAULT.JSON | base64 -w 0)"
@@ -107,8 +97,8 @@ jobs:
           printf 'happ://routing/onadd/%s\n' "$default_b64" > HAPP/DEFAULT.DEEPLINK
           printf 'happ://routing/onadd/%s\n' "$whitelist_b64" > HAPP/WHITELIST.DEEPLINK
           printf 'happ://routing/onadd/%s\n' "$jsonsub_b64" > HAPP/JSONSUB.DEEPLINK
-          
-      - name: Update INCY configs
+
+      - name: Update INCY configs (geoip/geosite URLs only, preserve Name and rules)
         shell: bash
         run: |
           set -euo pipefail
@@ -147,36 +137,23 @@ jobs:
 
           if [[ "$current_tag" < "$max_tag" ]]; then
             now_epoch="$(date -u +%s)"
+            # INCY использует URL без тега (всегда latest)
             geoip_url="https://cdn.jsdelivr.net/gh/${GEOIP_REPO}/release/geoip.dat"
             geosite_url="https://cdn.jsdelivr.net/gh/${GEOSITE_REPO}/release/geosite.dat"
 
             curl -fsSL --retry 3 --retry-delay 2 --retry-connrefused -I "$geoip_url" >/dev/null
             curl -fsSL --retry 3 --retry-delay 2 --retry-connrefused -I "$geosite_url" >/dev/null
 
-            tmp="$(mktemp)"
-            jq \
-              --arg ts "$now_epoch" \
-              --arg geoip "$geoip_url" \
-              --arg geosite "$geosite_url" \
-              '.LastUpdated = $ts | .Geoipurl = $geoip | .Geositeurl = $geosite' \
-              INCY/DEFAULT.JSON > "$tmp"
-            mv "$tmp" INCY/DEFAULT.JSON
-            tmp="$(mktemp)"
-            jq \
-              --arg ts "$now_epoch" \
-              --arg geoip "$geoip_url" \
-              --arg geosite "$geosite_url" \
-              '.LastUpdated = $ts | .Geoipurl = $geoip | .Geositeurl = $geosite' \
-              INCY/WHITELIST.JSON > "$tmp"
-            mv "$tmp" INCY/WHITELIST.JSON
-            tmp="$(mktemp)"
-            jq \
-              --arg ts "$now_epoch" \
-              --arg geoip "$geoip_url" \
-              --arg geosite "$geosite_url" \
-              '.LastUpdated = $ts | .Geoipurl = $geoip | .Geositeurl = $geosite' \
-              INCY/JSONSUB.JSON > "$tmp"
-            mv "$tmp" INCY/JSONSUB.JSON
+            for f in INCY/DEFAULT.JSON INCY/WHITELIST.JSON INCY/JSONSUB.JSON; do
+              tmp="$(mktemp)"
+              jq \
+                --arg ts "$now_epoch" \
+                --arg geoip "$geoip_url" \
+                --arg geosite "$geosite_url" \
+                '.LastUpdated = $ts | .Geoipurl = $geoip | .Geositeurl = $geosite' \
+                "$f" > "$tmp"
+              mv "$tmp" "$f"
+            done
           fi
 
           default_b64="$(jq -c . INCY/DEFAULT.JSON | base64 -w 0)"
@@ -196,13 +173,18 @@ jobs:
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
 
-          git add HAPP/DEFAULT.JSON HAPP/WHITELIST.JSON HAPP/JSONSUB.JSON HAPP/DEFAULT.DEEPLINK HAPP/WHITELIST.DEEPLINK HAPP/JSONSUB.DEEPLINK INCY/DEFAULT.JSON INCY/WHITELIST.JSON INCY/JSONSUB.JSON INCY/DEFAULT.DEEPLINK INCY/WHITELIST.DEEPLINK INCY/JSONSUB.DEEPLINK
+          git add \
+            HAPP/DEFAULT.JSON HAPP/WHITELIST.JSON HAPP/JSONSUB.JSON \
+            HAPP/DEFAULT.DEEPLINK HAPP/WHITELIST.DEEPLINK HAPP/JSONSUB.DEEPLINK \
+            INCY/DEFAULT.JSON INCY/WHITELIST.JSON INCY/JSONSUB.JSON \
+            INCY/DEFAULT.DEEPLINK INCY/WHITELIST.DEEPLINK INCY/JSONSUB.DEEPLINK
 
           if git diff --cached --quiet; then
+            echo "Nothing to commit, skipping."
             exit 0
           fi
 
-          git commit -m "$(date -u +%Y%m%d%H%M)"
+          git commit -m "chore: update geoip/geosite URLs $(date -u +%Y%m%d%H%M)"
           git push
 
       - name: Export deeplinks
@@ -215,152 +197,3 @@ jobs:
           echo "incy_default=$(tr -d '\n\r' < INCY/DEFAULT.DEEPLINK)" >> "$GITHUB_OUTPUT"
           echo "incy_whitelist=$(tr -d '\n\r' < INCY/WHITELIST.DEEPLINK)" >> "$GITHUB_OUTPUT"
           echo "incy_json=$(tr -d '\n\r' < INCY/JSONSUB.DEEPLINK)" >> "$GITHUB_OUTPUT"
-
-  deploy:
-    needs: update
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Deploy to servers
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          HAPP_DEFAULT="${{ needs.update.outputs.happ_default }}"
-          HAPP_WHITELIST="${{ needs.update.outputs.happ_whitelist }}"
-          HAPP_JSON="${{ needs.update.outputs.happ_json }}"
-          INCY_DEFAULT="${{ needs.update.outputs.incy_default }}"
-          INCY_WHITELIST="${{ needs.update.outputs.incy_whitelist }}"
-          INCY_JSON="${{ needs.update.outputs.incy_json }}"
-
-          mkdir -p ~/.ssh
-          echo "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/deploy_key
-          chmod 600 ~/.ssh/deploy_key
-
-          SSH_OPTS="-o StrictHostKeyChecking=no -o ConnectTimeout=10 -i ~/.ssh/deploy_key"
-
-          IFS=',' read -ra SERVERS <<< "${{ secrets.DEPLOY_SERVERS }}"
-
-          TOTAL=${#SERVERS[@]}
-          FAIL_COUNT=0
-
-          for i in "${!SERVERS[@]}"; do
-            SRV_NUM=$((i + 1))
-            SERVER="$(echo "${SERVERS[$i]}" | xargs)"
-
-            set +e
-            RESULT=$(ssh $SSH_OPTS "$SERVER" bash -s -- \
-              "$HAPP_DEFAULT" "$HAPP_WHITELIST" "$HAPP_JSON" \
-              "$INCY_DEFAULT" "$INCY_WHITELIST" "$INCY_JSON" 2>&1 <<'REMOTE_SCRIPT'
-              set -euo pipefail
-
-              HAPP_DEFAULT="$1"; HAPP_WHITELIST="$2"; HAPP_JSON="$3"
-              INCY_DEFAULT="$4"; INCY_WHITELIST="$5"; INCY_JSON="$6"
-
-              ACTIONS=""
-
-              # --- Geofiles ---
-              if [ -d /opt/remnanode ]; then
-                TARGET=/opt/remnanode
-              elif [ -d /opt/remnawave/node ]; then
-                TARGET=/opt/remnawave/node
-              else
-                TARGET=""
-              fi
-
-              if [ -n "$TARGET" ]; then
-                NEED_RESTART=false
-
-                REMOTE_GEOIP_SHA=$(sudo curl -fsSL --retry 3 --retry-delay 2 --retry-connrefused "https://github.com/hydraponique/roscomvpn-geoip/releases/latest/download/geoip.dat.sha256" | awk '{print $1}')
-                REMOTE_GEOSITE_SHA=$(sudo curl -fsSL --retry 3 --retry-delay 2 --retry-connrefused "https://github.com/hydraponique/roscomvpn-geosite/releases/latest/download/geosite.dat.sha256" | awk '{print $1}')
-
-                if [ -f "$TARGET/geoip.dat" ]; then
-                  LOCAL_GEOIP_SHA=$(sudo sha256sum "$TARGET/geoip.dat" | awk '{print $1}')
-                else
-                  LOCAL_GEOIP_SHA=""
-                fi
-
-                if [ -f "$TARGET/geosite.dat" ]; then
-                  LOCAL_GEOSITE_SHA=$(sudo sha256sum "$TARGET/geosite.dat" | awk '{print $1}')
-                else
-                  LOCAL_GEOSITE_SHA=""
-                fi
-
-                if [ "$REMOTE_GEOIP_SHA" != "$LOCAL_GEOIP_SHA" ]; then
-                  sudo curl -fsSL --retry 3 --retry-delay 2 --retry-connrefused -o "$TARGET/geoip.dat" "https://github.com/hydraponique/roscomvpn-geoip/releases/latest/download/geoip.dat"
-                  sudo chmod 777 "$TARGET/geoip.dat"
-                  NEED_RESTART=true
-                  ACTIONS="${ACTIONS}geoip.dat "
-                fi
-
-                if [ "$REMOTE_GEOSITE_SHA" != "$LOCAL_GEOSITE_SHA" ]; then
-                  sudo curl -fsSL --retry 3 --retry-delay 2 --retry-connrefused -o "$TARGET/geosite.dat" "https://github.com/hydraponique/roscomvpn-geosite/releases/latest/download/geosite.dat"
-                  sudo chmod 777 "$TARGET/geosite.dat"
-                  NEED_RESTART=true
-                  ACTIONS="${ACTIONS}geosite.dat "
-                fi
-
-                if [ "$NEED_RESTART" = true ]; then
-                  cd "$TARGET"
-                  sudo docker compose down && sudo docker compose up -d
-                  cd /
-                fi
-              fi
-
-              # --- Nginx ---
-              if [ -f /etc/nginx/sites-available/default ] && [ -f /etc/nginx/sites-available/incy.conf ]; then
-                update_config() {
-                  local FILE="$1" DEF="$2" WL="$3" JS="$4"
-                  local TMP=$(mktemp)
-                  awk -v def="$DEF" -v wl="$WL" -v js="$JS" '
-                    /location = \/[[:space:]]*$/ { loc="default" }
-                    /location = \/whitelist/ { loc="whitelist" }
-                    /location = \/json/ { loc="json" }
-                    /rewrite \// {
-                      if (loc == "default") { sub(/rewrite \/.*redirect;/, "rewrite / " def " redirect;"); loc="" }
-                      else if (loc == "whitelist") { sub(/rewrite \/.*redirect;/, "rewrite / " wl " redirect;"); loc="" }
-                      else if (loc == "json") { sub(/rewrite \/.*redirect;/, "rewrite / " js " redirect;"); loc="" }
-                    }
-                    { print }
-                  ' "$FILE" > "$TMP"
-                  sudo mv "$TMP" "$FILE"
-                  sudo chmod 644 "$FILE"
-                }
-
-                update_config /etc/nginx/sites-available/default "$HAPP_DEFAULT" "$HAPP_WHITELIST" "$HAPP_JSON"
-                update_config /etc/nginx/sites-available/incy.conf "$INCY_DEFAULT" "$INCY_WHITELIST" "$INCY_JSON"
-
-                sudo nginx -t && sudo service nginx restart
-                ACTIONS="${ACTIONS}nginx "
-              fi
-
-              # --- Result ---
-              if [ -z "$ACTIONS" ]; then
-                echo "up to date"
-              else
-                echo "updated ${ACTIONS% }"
-              fi
-          REMOTE_SCRIPT
-            )
-            ssh_exit=$?
-            set -e
-
-            RESULT=$(echo "$RESULT" | tail -1)
-
-            if [ $ssh_exit -ne 0 ]; then
-              echo "SRV${SRV_NUM} - FAIL (connection error)"
-              FAIL_COUNT=$((FAIL_COUNT + 1))
-            elif echo "$RESULT" | grep -q "^updated"; then
-              FILES=$(echo "$RESULT" | sed 's/^updated //')
-              echo "SRV${SRV_NUM} - OK (updated $FILES)"
-            else
-              echo "SRV${SRV_NUM} - OK (up to date)"
-            fi
-          done
-
-          rm -f ~/.ssh/deploy_key
-
-          if [ $FAIL_COUNT -gt 0 ]; then
-            echo "Failed: $FAIL_COUNT/$TOTAL servers"
-            exit 1
-          fi

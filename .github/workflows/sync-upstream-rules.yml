@@ -1,0 +1,111 @@
+name: Sync Rules from Upstream
+
+# Синхронизирует DirectSites/ProxySites/BlockSites/DirectIp/ProxyIp/BlockIp
+# из оригинального репозитория hydraponique/roscomvpn-routing.
+# Name и DnsHosts НЕ трогаются — остаются твои.
+# Запускается вручную или по расписанию раз в неделю.
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 4 * * 1'  # Каждый понедельник в 04:00 UTC
+
+permissions:
+  contents: write
+
+jobs:
+  sync-rules:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch upstream rules and merge
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          UPSTREAM="https://raw.githubusercontent.com/hydraponique/roscomvpn-routing/main"
+
+          # Скачиваем апстрим-конфиги
+          curl -fsSL "$UPSTREAM/HAPP/DEFAULT.JSON"   -o /tmp/upstream_happ_default.json
+          curl -fsSL "$UPSTREAM/HAPP/WHITELIST.JSON" -o /tmp/upstream_happ_whitelist.json
+          curl -fsSL "$UPSTREAM/HAPP/JSONSUB.JSON"   -o /tmp/upstream_happ_jsonsub.json
+          curl -fsSL "$UPSTREAM/INCY/DEFAULT.JSON"   -o /tmp/upstream_incy_default.json
+          curl -fsSL "$UPSTREAM/INCY/WHITELIST.JSON" -o /tmp/upstream_incy_whitelist.json
+          curl -fsSL "$UPSTREAM/INCY/JSONSUB.JSON"   -o /tmp/upstream_incy_jsonsub.json
+
+          # Функция: берёт правила из апстрима, сохраняет Name/DnsHosts/Geoipurl/Geositeurl из нашего файла
+          merge_rules() {
+            local OUR="$1"
+            local UPSTREAM_FILE="$2"
+            local TMP
+            TMP="$(mktemp)"
+
+            jq -s '
+              .[0] as $our |
+              .[1] as $up |
+              $our
+              | .DirectSites  = $up.DirectSites
+              | .DirectIp     = $up.DirectIp
+              | .ProxySites   = $up.ProxySites
+              | .ProxyIp      = $up.ProxyIp
+              | .BlockSites   = $up.BlockSites
+              | .BlockIp      = $up.BlockIp
+              | .RouteOrder   = $up.RouteOrder
+              | .DomainStrategy = $up.DomainStrategy
+              | .FakeDNS      = $up.FakeDNS
+            ' "$OUR" "$UPSTREAM_FILE" > "$TMP"
+
+            mv "$TMP" "$OUR"
+          }
+
+          merge_rules HAPP/DEFAULT.JSON   /tmp/upstream_happ_default.json
+          merge_rules HAPP/WHITELIST.JSON /tmp/upstream_happ_whitelist.json
+          merge_rules HAPP/JSONSUB.JSON   /tmp/upstream_happ_jsonsub.json
+          merge_rules INCY/DEFAULT.JSON   /tmp/upstream_incy_default.json
+          merge_rules INCY/WHITELIST.JSON /tmp/upstream_incy_whitelist.json
+          merge_rules INCY/JSONSUB.JSON   /tmp/upstream_incy_jsonsub.json
+
+          echo "Rules merged from upstream."
+
+      - name: Regenerate deeplinks after rule sync
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          default_b64="$(jq -c . HAPP/DEFAULT.JSON | base64 -w 0)"
+          whitelist_b64="$(jq -c . HAPP/WHITELIST.JSON | base64 -w 0)"
+          jsonsub_b64="$(jq -c . HAPP/JSONSUB.JSON | base64 -w 0)"
+          printf 'happ://routing/onadd/%s\n' "$default_b64" > HAPP/DEFAULT.DEEPLINK
+          printf 'happ://routing/onadd/%s\n' "$whitelist_b64" > HAPP/WHITELIST.DEEPLINK
+          printf 'happ://routing/onadd/%s\n' "$jsonsub_b64" > HAPP/JSONSUB.DEEPLINK
+
+          default_b64="$(jq -c . INCY/DEFAULT.JSON | base64 -w 0)"
+          whitelist_b64="$(jq -c . INCY/WHITELIST.JSON | base64 -w 0)"
+          jsonsub_b64="$(jq -c . INCY/JSONSUB.JSON | base64 -w 0)"
+          printf 'incy://routing/onadd/%s\n' "$default_b64" > INCY/DEFAULT.DEEPLINK
+          printf 'incy://routing/onadd/%s\n' "$whitelist_b64" > INCY/WHITELIST.DEEPLINK
+          printf 'incy://routing/onadd/%s\n' "$jsonsub_b64" > INCY/JSONSUB.DEEPLINK
+
+      - name: Commit and push
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+          git add \
+            HAPP/DEFAULT.JSON HAPP/WHITELIST.JSON HAPP/JSONSUB.JSON \
+            HAPP/DEFAULT.DEEPLINK HAPP/WHITELIST.DEEPLINK HAPP/JSONSUB.DEEPLINK \
+            INCY/DEFAULT.JSON INCY/WHITELIST.JSON INCY/JSONSUB.JSON \
+            INCY/DEFAULT.DEEPLINK INCY/WHITELIST.DEEPLINK INCY/JSONSUB.DEEPLINK
+
+          if git diff --cached --quiet; then
+            echo "Rules already up to date."
+            exit 0
+          fi
+
+          git commit -m "chore: sync routing rules from upstream $(date -u +%Y%m%d)"
+          git push

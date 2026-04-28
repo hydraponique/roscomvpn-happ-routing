@@ -1,5 +1,5 @@
 {
-  "Name": "RoscomVPN Whitelist",
+  "Name": "NeoTUN Whitelist",
   "GlobalProxy": "true",
   "UseChunkFiles": "true",
   "RemoteDns": "8.8.8.8",

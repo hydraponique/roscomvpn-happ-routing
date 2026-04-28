@@ -38,13 +38,13 @@
 | Способ | Ссылка | Описание |
 |--------|--------|----------|
 | **DEFAULT** — полный профиль: RU/BY direct, YouTube/Telegram/GitHub через прокси, реклама блокируется | | |
-| 🔗 DEFAULT.DEEPLINK | [Просмотр](https://raw.githubusercontent.com/Kolya-YT/neotun-routing/refs/heads/main/HAPP/DEFAULT.DEEPLINK) | Диплинк-ссылка в текстовом формате |
+| 🔗 DEFAULT.DEEPLINK | [Открыть в Happ](https://raw.githubusercontent.com/Kolya-YT/neotun-routing/refs/heads/main/HAPP/DEFAULT.DEEPLINK) | Диплинк — открыть на телефоне |
 | 📊 DEFAULT.JSON | [Просмотр](https://raw.githubusercontent.com/Kolya-YT/neotun-routing/refs/heads/main/HAPP/DEFAULT.JSON) | JSON-конфиг роутинга |
 | **WHITELIST** — direct только для сервисов и IP из белых списков РФ; всё остальное через прокси | | |
-| 🔗 WHITELIST.DEEPLINK | [Просмотр](https://raw.githubusercontent.com/Kolya-YT/neotun-routing/refs/heads/main/HAPP/WHITELIST.DEEPLINK) | Диплинк-ссылка в текстовом формате |
+| 🔗 WHITELIST.DEEPLINK | [Открыть в Happ](https://raw.githubusercontent.com/Kolya-YT/neotun-routing/refs/heads/main/HAPP/WHITELIST.DEEPLINK) | Диплинк — открыть на телефоне |
 | 📊 WHITELIST.JSON | [Просмотр](https://raw.githubusercontent.com/Kolya-YT/neotun-routing/refs/heads/main/HAPP/WHITELIST.JSON) | JSON-конфиг роутинга |
 | **JSONSUB** — минимальный профиль: только DNS + кастомные geoip/geosite, без встроенных правил | | |
-| 🔗 JSONSUB.DEEPLINK | [Просмотр](https://raw.githubusercontent.com/Kolya-YT/neotun-routing/refs/heads/main/HAPP/JSONSUB.DEEPLINK) | Диплинк-ссылка в текстовом формате |
+| 🔗 JSONSUB.DEEPLINK | [Открыть в Happ](https://raw.githubusercontent.com/Kolya-YT/neotun-routing/refs/heads/main/HAPP/JSONSUB.DEEPLINK) | Диплинк — открыть на телефоне |
 | 📊 JSONSUB.JSON | [Просмотр](https://raw.githubusercontent.com/Kolya-YT/neotun-routing/refs/heads/main/HAPP/JSONSUB.JSON) | JSON-конфиг роутинга |
 
 ## 📱 Установка для INCY (файлы)
@@ -52,13 +52,13 @@
 | Способ | Ссылка | Описание |
 |--------|--------|----------|
 | **DEFAULT** — полный профиль | | |
-| 🔗 DEFAULT.DEEPLINK | [Просмотр](https://raw.githubusercontent.com/Kolya-YT/neotun-routing/refs/heads/main/INCY/DEFAULT.DEEPLINK) | Диплинк-ссылка в текстовом формате |
+| 🔗 DEFAULT.DEEPLINK | [Открыть в INCY](https://raw.githubusercontent.com/Kolya-YT/neotun-routing/refs/heads/main/INCY/DEFAULT.DEEPLINK) | Диплинк — открыть на телефоне |
 | 📊 DEFAULT.JSON | [Просмотр](https://raw.githubusercontent.com/Kolya-YT/neotun-routing/refs/heads/main/INCY/DEFAULT.JSON) | JSON-конфиг роутинга |
 | **WHITELIST** | | |
-| 🔗 WHITELIST.DEEPLINK | [Просмотр](https://raw.githubusercontent.com/Kolya-YT/neotun-routing/refs/heads/main/INCY/WHITELIST.DEEPLINK) | Диплинк-ссылка в текстовом формате |
+| 🔗 WHITELIST.DEEPLINK | [Открыть в INCY](https://raw.githubusercontent.com/Kolya-YT/neotun-routing/refs/heads/main/INCY/WHITELIST.DEEPLINK) | Диплинк — открыть на телефоне |
 | 📊 WHITELIST.JSON | [Просмотр](https://raw.githubusercontent.com/Kolya-YT/neotun-routing/refs/heads/main/INCY/WHITELIST.JSON) | JSON-конфиг роутинга |
 | **JSONSUB** | | |
-| 🔗 JSONSUB.DEEPLINK | [Просмотр](https://raw.githubusercontent.com/Kolya-YT/neotun-routing/refs/heads/main/INCY/JSONSUB.DEEPLINK) | Диплинк-ссылка в текстовом формате |
+| 🔗 JSONSUB.DEEPLINK | [Открыть в INCY](https://raw.githubusercontent.com/Kolya-YT/neotun-routing/refs/heads/main/INCY/JSONSUB.DEEPLINK) | Диплинк — открыть на телефоне |
 | 📊 JSONSUB.JSON | [Просмотр](https://raw.githubusercontent.com/Kolya-YT/neotun-routing/refs/heads/main/INCY/JSONSUB.JSON) | JSON-конфиг роутинга |
 
 ## 💻 Установка для Mihomo (Clash Meta)
@@ -94,18 +94,6 @@
 | 🌐 Google Play | Борьба с ТСПУ и банами РКН |
 | 🌐 GitHub | Борьба с ТСПУ и банами РКН |
 | 🌐 Весь остальной интернет | Всё зарубежное через прокси |
-
----
-
-## 🔄 Автообновление
-
-Два GitHub Actions workflow запускаются **каждые 6 часов**:
-
-**`update-configs.yml`** — обновляет `Geoipurl` и `Geositeurl` в JSON-конфигах из апстрим-репозиториев. Не трогает `Name` и правила.
-
-**`sync-upstream-rules.yml`** — синхронизирует `DirectSites`, `ProxySites`, `BlockSites` из оригинального репозитория. Не трогает `Name`, `DnsHosts`, `Geoipurl`, `Geositeurl`.
-
-После каждого обновления deeplink'и регенерируются и nginx-конфиги на сервере обновляются автоматически через SSH.
 
 ---
 

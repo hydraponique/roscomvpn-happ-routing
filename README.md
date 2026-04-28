@@ -2,7 +2,7 @@
 
 # 🚀 NeoTUN Routing
 
-**Готовые конфигурации маршрутизации для [Happ](https://happ.su), [INCY](https://incy.cc) и [Mihomo](https://github.com/MetaCubeX/mihomo)**
+**Готовые конфигурации маршрутизации для [Happ](https://happ.su), [INCY](https://incy.cc)**
 
 > Быстрый и универсальный роутинг: без дыр и утечки вашего сервера, "хирургическая" фильтрация, всё нужное — разблокировано, а ненужное — заблокировано
 
@@ -10,7 +10,6 @@
 
 [![Happ](https://img.shields.io/badge/Happ-blue.svg)](https://happ.su)
 [![INCY](https://img.shields.io/badge/INCY-darkgreen.svg)](https://incy.cc)
-[![Mihomo](https://img.shields.io/badge/Mihomo-grey.svg)](https://github.com/MetaCubeX/mihomo)
 
 </div>
 
@@ -44,10 +43,6 @@
 | 🔗 JSONSUB.DEEPLINK | [Просмотр](https://raw.githubusercontent.com/Kolya-YT/neotun-routing/refs/heads/main/INCY/JSONSUB.DEEPLINK) | Диплинк-ссылка в текстовом формате |
 | 📊 JSONSUB.JSON | [Просмотр](https://raw.githubusercontent.com/Kolya-YT/neotun-routing/refs/heads/main/INCY/JSONSUB.JSON) | JSON-конфиг роутинга |
 
-## 💻 Установка для Mihomo (Clash Meta)
-
-Готовые YAML-шаблоны в папке `MIHOMO/`. Подставьте URL вашей подписки и используйте с любым Mihomo-совместимым клиентом.
-
 ---
 
 ## 🗺 Что роутится в DEFAULT-версии
@@ -77,24 +72,6 @@
 | 🌐 Google Play | Борьба с ТСПУ и банами РКН |
 | 🌐 GitHub | Борьба с ТСПУ и банами РКН |
 | 🌐 Весь остальной интернет | Всё зарубежное через прокси |
-
----
-
-## 🔄 Автообновление
-
-Два GitHub Actions workflow:
-
-**`update-configs.yml`** — запускается каждые 6 часов:
-- Проверяет новые теги в [roscomvpn-geoip](https://github.com/hydraponique/roscomvpn-geoip) и [roscomvpn-geosite](https://github.com/hydraponique/roscomvpn-geosite)
-- Обновляет `Geoipurl` и `Geositeurl` в JSON-конфигах
-- Регенерирует диплинки
-- **Не трогает** `Name`, `DnsHosts` и правила роутинга
-
-**`sync-upstream-rules.yml`** — запускается каждый понедельник (или вручную):
-- Синхронизирует `DirectSites`, `ProxySites`, `BlockSites` и IP-списки из оригинального репозитория
-- **Не трогает** `Name`, `DnsHosts`, `Geoipurl`, `Geositeurl` — они остаются твоими
-
-> Если хочешь изменить правила роутинга под себя — редактируй JSON-файлы напрямую. При следующей синхронизации правила обновятся из апстрима. Чтобы заблокировать синхронизацию конкретного файла — удали его из списка `git add` в workflow.
 
 ---
 

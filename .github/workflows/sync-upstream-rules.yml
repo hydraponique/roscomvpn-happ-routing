@@ -3,12 +3,11 @@ name: Sync Rules from Upstream
 # Синхронизирует DirectSites/ProxySites/BlockSites/DirectIp/ProxyIp/BlockIp
 # из оригинального репозитория hydraponique/roscomvpn-routing.
 # Name и DnsHosts НЕ трогаются — остаются твои.
-# Запускается вручную или по расписанию раз в неделю.
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 4 * * 1'  # Каждый понедельник в 04:00 UTC
+    - cron: '0 */6 * * *'  # Каждые 6 часов
 
 permissions:
   contents: write

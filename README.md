@@ -2,7 +2,7 @@
 
 # 🚀 NeoTUN Routing
 
-**Готовые конфигурации маршрутизации для [Happ](https://happ.su), [INCY](https://incy.cc)**
+**Готовые конфигурации маршрутизации для [Happ](https://happ.su), [INCY](https://incy.cc) и [Mihomo](https://github.com/MetaCubeX/mihomo)**
 
 > Быстрый и универсальный роутинг: без дыр и утечки вашего сервера, "хирургическая" фильтрация, всё нужное — разблокировано, а ненужное — заблокировано
 
@@ -10,12 +10,30 @@
 
 [![Happ](https://img.shields.io/badge/Happ-blue.svg)](https://happ.su)
 [![INCY](https://img.shields.io/badge/INCY-darkgreen.svg)](https://incy.cc)
+[![Mihomo](https://img.shields.io/badge/Mihomo-grey.svg)](https://github.com/MetaCubeX/mihomo)
 
 </div>
 
 ---
 
-## 📱 Установка для Happ
+## ⚡ Быстрая установка
+
+Открой ссылку **на телефоне** — приложение установит роутинг автоматически:
+
+| Приложение | Профиль | Ссылка |
+|-----------|---------|--------|
+| **Happ** | DEFAULT (рекомендуется) | [neotun.ru/routing](https://neotun.ru/routing) |
+| **Happ** | Whitelist (только РФ direct) | [neotun.ru/routing/whitelist](https://neotun.ru/routing/whitelist) |
+| **Happ** | JSONSUB (минимальный) | [neotun.ru/routing/jsonsub](https://neotun.ru/routing/jsonsub) |
+| **INCY** | DEFAULT (рекомендуется) | [neotun.ru/routing/incy](https://neotun.ru/routing/incy) |
+| **INCY** | Whitelist | [neotun.ru/routing/incy/whitelist](https://neotun.ru/routing/incy/whitelist) |
+| **INCY** | JSONSUB | [neotun.ru/routing/incy/jsonsub](https://neotun.ru/routing/incy/jsonsub) |
+
+> Те же ссылки доступны через `sub.neotunnel.ru/routing`, `sub.neotunnel.ru/routing/incy` и т.д.
+
+---
+
+## 📱 Установка для Happ (файлы)
 
 | Способ | Ссылка | Описание |
 |--------|--------|----------|
@@ -29,7 +47,7 @@
 | 🔗 JSONSUB.DEEPLINK | [Просмотр](https://raw.githubusercontent.com/Kolya-YT/neotun-routing/refs/heads/main/HAPP/JSONSUB.DEEPLINK) | Диплинк-ссылка в текстовом формате |
 | 📊 JSONSUB.JSON | [Просмотр](https://raw.githubusercontent.com/Kolya-YT/neotun-routing/refs/heads/main/HAPP/JSONSUB.JSON) | JSON-конфиг роутинга |
 
-## 📱 Установка для INCY
+## 📱 Установка для INCY (файлы)
 
 | Способ | Ссылка | Описание |
 |--------|--------|----------|
@@ -42,6 +60,10 @@
 | **JSONSUB** | | |
 | 🔗 JSONSUB.DEEPLINK | [Просмотр](https://raw.githubusercontent.com/Kolya-YT/neotun-routing/refs/heads/main/INCY/JSONSUB.DEEPLINK) | Диплинк-ссылка в текстовом формате |
 | 📊 JSONSUB.JSON | [Просмотр](https://raw.githubusercontent.com/Kolya-YT/neotun-routing/refs/heads/main/INCY/JSONSUB.JSON) | JSON-конфиг роутинга |
+
+## 💻 Установка для Mihomo (Clash Meta)
+
+Готовые YAML-шаблоны в папке `MIHOMO/`. Подставьте URL вашей подписки и используйте с любым Mihomo-совместимым клиентом.
 
 ---
 
@@ -72,6 +94,18 @@
 | 🌐 Google Play | Борьба с ТСПУ и банами РКН |
 | 🌐 GitHub | Борьба с ТСПУ и банами РКН |
 | 🌐 Весь остальной интернет | Всё зарубежное через прокси |
+
+---
+
+## 🔄 Автообновление
+
+Два GitHub Actions workflow запускаются **каждые 6 часов**:
+
+**`update-configs.yml`** — обновляет `Geoipurl` и `Geositeurl` в JSON-конфигах из апстрим-репозиториев. Не трогает `Name` и правила.
+
+**`sync-upstream-rules.yml`** — синхронизирует `DirectSites`, `ProxySites`, `BlockSites` из оригинального репозитория. Не трогает `Name`, `DnsHosts`, `Geoipurl`, `Geositeurl`.
+
+После каждого обновления deeplink'и регенерируются и nginx-конфиги на сервере обновляются автоматически через SSH.
 
 ---
 

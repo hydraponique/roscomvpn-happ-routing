@@ -9,13 +9,13 @@
 <tr>
 <td align="center"><img src="https://img.shields.io/github/downloads/hydraponique/roscomvpn-geoip/total.svg" alt="Downloads"> <img src="https://data.jsdelivr.com/v1/package/gh/hydraponique/roscomvpn-geoip/badge" alt="jsDelivr"></td>
 <td align="center"><img src="https://img.shields.io/github/downloads/hydraponique/roscomvpn-geosite/total.svg" alt="Downloads"> <img src="https://data.jsdelivr.com/v1/package/gh/hydraponique/roscomvpn-geosite/badge" alt="jsDelivr"></td>
-<td align="center"><img src="https://img.shields.io/github/stars/hydraponique/roscomvpn-routing.svg" alt="Stars"> <img src="https://img.shields.io/badge/Happ-blue.svg" alt="Happ"> <img src="https://img.shields.io/badge/Mihomo-grey.svg" alt="Mihomo"> <img src="https://img.shields.io/badge/Incy-darkgreen.svg" alt="Incy"></td>
+<td align="center"><img src="https://img.shields.io/github/stars/hydraponique/roscomvpn-routing.svg" alt="Stars"> <img src="https://img.shields.io/badge/Happ-blue.svg" alt="Happ"> <img src="https://img.shields.io/badge/Mihomo-grey.svg" alt="Mihomo"> <img src="https://img.shields.io/badge/Incy-darkgreen.svg" alt="Incy"> <img src="https://img.shields.io/badge/Shadowrocket-community-black.svg" alt="Shadowrocket community"></td>
 </tr>
 </table>
 
 # 🚀 RoscomVPN Routing
 
-**Готовые конфигурации маршрутизации для [Happ](https://happ.su), [INCY](https://incy.cc) и [Mihomo](https://github.com/MetaCubeX/mihomo) (Clash Meta, Clash Mi и др.)**
+**Готовые конфигурации маршрутизации для [Happ](https://happ.su), [INCY](https://incy.cc) и [Mihomo](https://github.com/MetaCubeX/mihomo) (Clash Meta, Clash Mi и др.) + community-адаптер для Shadowrocket**
 
 > Быстрый и универсальный роутинг: без дыр и утечки вашего сервера, "хирургическая" фильтрация, все нужное — разблокировано, а ненужное — заблокировано
 
@@ -74,6 +74,20 @@
 </table>
 
 Подставьте URL вашей подписки и используйте с любым Mihomo-совместимым клиентом (Clash Mi, Clash Verge и др.).
+
+## 🍏 Установка для Shadowrocket (community)
+
+Shadowrocket не умеет напрямую читать `geoip.dat`, `geosite.dat` и Mihomo `mrs` rule-providers, поэтому для него нужен отдельный конвертированный профиль.
+
+<table width="100%">
+<thead><tr><th align="left">Способ</th><th align="left">Ссылка</th><th align="left">Описание</th></tr></thead>
+<tbody>
+<tr><td>⚡ Быстрая установка</td><td><a href="https://raw.githubusercontent.com/lemonchikHere/roscomvpn-shadowrocket/main/roscomvpn-shadowrocket.conf">roscomvpn-shadowrocket.conf</a></td><td>Готовый RULE-SET профиль для Shadowrocket на iOS/macOS</td></tr>
+<tr><td>🧰 Исходники адаптера</td><td><a href="https://github.com/lemonchikHere/roscomvpn-shadowrocket">roscomvpn-shadowrocket</a></td><td>Конвертер, generated-конфиги и отдельные списки правил</td></tr>
+</tbody>
+</table>
+
+Адаптер собирается из RoscomVPN Routing и поддерживает тот же подход: RU/BY напрямую, YouTube/Telegram/GitHub через прокси, блокировка рекламы и отдельные правила для Shadowrocket-специфичных кейсов.
 
 ---
 

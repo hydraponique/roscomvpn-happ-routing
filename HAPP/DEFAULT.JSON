@@ -30,7 +30,9 @@
     "geosite:steam",
     "geosite:twitch",
     "geosite:pinterest",
-    "geosite:faceit"
+    "geosite:faceit",
+    "domain:soundcloud.com",
+    "domain:sndcdn.com"
   ],
   "DirectIp": [
     "geoip:private",

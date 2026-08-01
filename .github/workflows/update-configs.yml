@@ -147,8 +147,8 @@ jobs:
 
           if [[ "$current_tag" < "$max_tag" ]]; then
             now_epoch="$(date -u +%s)"
-            geoip_url="https://cdn.jsdelivr.net/gh/${GEOIP_REPO}/release/geoip.dat"
-            geosite_url="https://cdn.jsdelivr.net/gh/${GEOSITE_REPO}/release/geosite.dat"
+            geoip_url="https://cdn.jsdelivr.net/gh/${GEOIP_REPO}@${geoip_tag}/release/geoip.dat"
+            geosite_url="https://cdn.jsdelivr.net/gh/${GEOSITE_REPO}@${geosite_tag}/release/geosite.dat"
 
             curl -fsSL --retry 3 --retry-delay 2 --retry-connrefused -I "$geoip_url" >/dev/null
             curl -fsSL --retry 3 --retry-delay 2 --retry-connrefused -I "$geosite_url" >/dev/null
